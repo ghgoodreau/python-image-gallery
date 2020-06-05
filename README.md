@@ -1,3 +1,3 @@
-# An EC2-based mython image gallery manager
+# An EC2-based python image gallery manager
 
 See title.
