@@ -1,2 +1,3 @@
-# python-image-gallery
-Python image gallery for AWS cloud computing elective at Auburn
+# An EC2-based mython image gallery manager
+
+See title.
