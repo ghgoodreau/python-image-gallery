@@ -37,45 +37,64 @@ def printMenu():
 # function that lists all users in the database 
 def listUsers():
 	print(" ")
-	res = execute('select * from users')
-	for row in res:
+	listing = execute('select * from users')
+	for row in listing:
 		print(row)
 
-# function to add user. not working quite yet due to the if/else and try catch block. returns an error even if user doesn't exist.
+# function to add user.
 def addUser():
 	print(" ")
-	adduser_name = input("Enter user to add: ")
-	adduser_pass = input("Enter password: ")
-	adduser_fullname = input("Enter full name of user: ")
+	adduser_name = input("Username> ")
+	adduser_pass = input("Password> ")
+	adduser_fullname = input("Full name> ")
 	try:
-		added = execute('insert into users values (%s, %s, %s)', (adduser_name, adduser_pass, adduser_fullname))
+		adding = execute('insert into users values (%s, %s, %s)', (adduser_name, adduser_pass, adduser_fullname))
 		connection.commit()
 	except:
 		print('User already exists.')
-	# Error: user with username ____ already exists
+
+#function to check if a user exits already. Returns true if user exists, false otherwise.
+def checkUserExists(usernameToCheck):
+	checking = execute('select * from users where username=%s;', (usernameToCheck,))
+	row = checking.fetchone()
+	if (row):
+		return True;
+	return False;
 
 # function to edit user details
 def editUser():
 	print(" ")
-	edituser_name = input("Enter the user to edit: ")
-	valid_name = execute('select * from users where username=%s', (edituser_name,))
-	print(valid_name)
+	edituser_name = input("Username to edit> ")
+	if (checkUserExists(edituser_name) == True):
+		edituser_pass = input("New password (press enter to keep current)> ")
+		edituser_fullname = input("New full name (press enter to keep current)> ")
+		if (edituser_pass != ''):
+			editingpass = execute("update users set password=%s where username=%s;", (edituser_pass, edituser_name))
+		if (edituser_fullname != ''):
+			editingfullname = execute("update users set full_name=%s where username=%s;", (edituser_fullname, edituser_name))
+		connection.commit()
+	else:
+		print('No user with that name exists.')
 	# Error: No such user.
 
-# function to delete user details
+# completed function to delete user details
 def deleteUser():
 	print(" ")
-	deleteuser_name = input("Enter the name of the user you want to delete: ")
-	deleteuser_choice = input("Are you sure you want to delete that user? (y/n): ")
-	if deleteuser_choice == 'y':
+	deleteuser_name = input("Enter username to delete: ")
+	if (checkUserExists(deleteuser_name) == True):
+		deleteuser_choice = input("Are you sure you want to delete that user? (y/n)> ")
+		if deleteuser_choice == 'y':
 	# still need to verify that deleteuser_name exists within the table
-		try:
-			deleting = execute('delete from users where username=%s', (deleteuser_name,))
-			print("Deletion successful.")
-			# once everything is verified working, this is where I would add connection.commit()
-		except:
-			print("Deletion failed.")
+			try:
+				deleting = execute('delete from users where username=%s', (deleteuser_name,))
+				print("Deletion successful.")
+				connection.commit()
+			except:
+				print("Error deleting.")
+	else:
+		print("User doesn't exist.")
 
+# completed main function
 def main():
 	connect()
 	choice = '0'
@@ -91,10 +110,6 @@ def main():
 			editUser()
 		if choice == "4":
 			deleteUser()
-		# if choice is not 1-5, print this
-		else:
-			print(" ")
-			print("Invalid choice. Try again.")
 	# choice is 5
 	print(" ")
 	print("See ya!")
