@@ -46,7 +46,7 @@ def listUsers():
 # needed to print on admin page without password
 def listUsersWithoutPassword():
     list_nopassword = execute('select username, full_name from users;')
-    return res
+    return list_nopassword
 
 #returns a specific user with all their info
 def getUser(username):
