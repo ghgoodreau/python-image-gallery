@@ -4,7 +4,6 @@ from secrets import *
 
 # rewriting this because user_admin is incompatible with scaling to a web app
 
-
 # setup stuff
 connection = None
 
