@@ -1,8 +1,8 @@
 from flask import Flask
 from flask import request
 from flask import render_template
-from tools.user_admin import connect
 from tools.secrets import get_secret_image_gallery
+from tools.user_admin import connect
 
 app = Flask(__name__)
 
