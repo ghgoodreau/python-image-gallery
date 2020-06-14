@@ -59,7 +59,7 @@ def getUserNoPass(username):
     return get_user_nopass
 
 def main():
-	connect()
+    connect()
     test = listUsers()
     print(test)
     for row in test:
