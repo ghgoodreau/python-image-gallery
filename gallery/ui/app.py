@@ -1,8 +1,6 @@
 from flask import Flask
 from flask import request
 from flask import render_template
-from tools.secrets import get_secret_image_gallery
-from tools.user_admin import connect
 
 app = Flask(__name__)
 
@@ -12,6 +10,4 @@ def hello_world():
 
 @app.route('/admin')
 def admin_render():
-    connect()
-    user_list = listAllNoPass().fetchall()
-    return render_template('admin.html', user_list=user_list)
+    return render_template('admin.html')
