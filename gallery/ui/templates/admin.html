@@ -8,5 +8,8 @@
     <h1>User Administration</h1>
     <br>
     <h2>Here is a list of users:</h2>
+    {{% for user in user_list %}}
+      {{User(user)}}
+    {{% endfor %}}
   </body>
 </html>
