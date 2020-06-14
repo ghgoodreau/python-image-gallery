@@ -84,9 +84,9 @@ def editUser(username):
     edituser_fullname = username[2]
     if (checkUserExists(edituser_name) == True):
 	    if (edituser_pass != ''):
-                edit_pass = execute('update users set password=%s where username=%s;', (password, username))
+                edit_pass = execute('update users set password=%s where username=%s;', (edituser_pass, edituser_name))
 	    if (edituser_fullname != ''):
-                edit_fullname = execute('update users set full_name=%s where username=%s;', (full_name, username))
+                edit_fullname = execute('update users set full_name=%s where username=%s;', (edituser_fullname, edituser_name))
 	    connection.commit()
 
 def main():

@@ -32,3 +32,10 @@ def adding_user_render():
     if(checkUserExists(request.form['adding_username']) == False):
       addUser(new_user)
     return redirect(url_for('admin_render'))
+
+@app.route('/admin/editingUser', methods=['POST'])
+def editing_user_render():
+    edit_user = [request.form['editing_username'], request.form['editing_password'], request.form['editing_full_name']]
+    connect()
+    editUser(edit_user)
+    return redirect(url_for('admin_render'))

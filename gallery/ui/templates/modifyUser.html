@@ -6,5 +6,12 @@
   </head>
   <body>
     <h1>Hello {{(username)}}!</h1>
+    <h2>Please fill out what you want to change below. Leave it blank if you don't want a change.</h2>
+    <form action="/admin/editingUser" method="POST">
+      <input name="editing_username" value="{{(username)}}" type="hidden">
+      <label>Password: </label><input name="editing_password" value="" /><br>
+      <label>Full name: </label><input name="editing_full_name" value="" /><br>
+      <br>
+      <input type="submit" value="Edit User!" />
   </body>
 </html>
