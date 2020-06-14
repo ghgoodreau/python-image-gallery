@@ -37,6 +37,7 @@ def execute(query, args=None):
 	else:
 		cursor.execute(query, args)
 	return cursor
+# end setup stuff
 
 # lists all users
 def listUsers():
@@ -89,12 +90,14 @@ def editUser(username):
                 edit_fullname = execute('update users set full_name=%s where username=%s;', (edituser_fullname, edituser_name))
 	    connection.commit()
 
+# function to delete user. no confirm necessary as that will be application side
 def deleteUser(username):
     user_to_delete = username[0]
     if (checkUserExists(user_to_delete) == True):
             deleting = execute('delete from users where username=%s', (user_to_delete,))
             connection.commit()
 
+# main method for testing only
 def main():
     connect()
     test = listUsers()
