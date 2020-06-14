@@ -44,20 +44,11 @@ def listUsers():
     list_users = execute('select * from users;')
     return list_users
 
-# needed to print on admin page without password
-def listUsersWithoutPassword():
-    list_nopassword = execute('select username, full_name from users;')
-    return list_nopassword
 
 #returns a specific user with all their info
 def getUser(username):
     get_user = execute('select * from users where username=%s;', (username,))
     return get_user
-
-# returns a specific user with no password
-def getUserNoPass(username):
-    get_user_nopass = execute('select username, full_name from users where username=%s;', (username,))
-    return get_user_nopass
 
 #function to check if a user exits already. Returns true if user exists, false otherwise.
 def checkUserExists(usernameToCheck):
