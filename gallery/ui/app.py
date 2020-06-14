@@ -11,4 +11,6 @@ def hello_world():
 
 @app.route('/admin')
 def admin_render():
-    return render_template('admin.html')
+    connect()
+    user_list = listAllNoPass().fetchall()
+    return render_template('admin.html', user_list=user_list)

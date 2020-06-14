@@ -5,6 +5,11 @@
     <title>admin</title>
   </head>
   <body>
-    <h1>This is a test!</h1>
+    <h1>User Administration</h1>
+    <br>
+    <h2>Here is a list of users:</h2>
+    {% for row in user_data %}
+      <a href="/admin/modify_user">{{row[0]}} + {{row[1]}}</a>
+    {% endfor %}
   </body>
 </html>
