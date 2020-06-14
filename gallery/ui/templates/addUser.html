@@ -5,6 +5,13 @@
     <title>add user</title>
   </head>
   <body>
-    <h1>Add a user!</h1>
+    <h1>New User Form</h1>
+    <form action="/admin/addingUser" method="POST">
+      <label>username: </label><input name="adding_username" value="" /><br>
+      <label>password: </label><input name="adding_password" value="" /><br>
+      <label>full name: </label><input name="adding_full_name" value="" /><br>
+      <br>
+      <input type="submit" value="Add User!" />
+    </form>
   </body>
 </html>
