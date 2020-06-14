@@ -1,7 +1,4 @@
-from flask import Flask
-from flask import request
-from flask import render_template
-
+from flask import Flask, render_template, request, redirect, url_for
 app = Flask(__name__)
 
 @app.route('/')
@@ -10,4 +7,9 @@ def hello_world():
 
 @app.route('/admin')
 def admin_render():
+    # connect()
     return render_template('admin.html')
+
+@app.route('/admin/newUser')
+def new_user():
+    return render_template('newUser.html')
