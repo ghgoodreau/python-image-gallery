@@ -90,9 +90,8 @@ def editUser(username):
 	    connection.commit()
 
 def deleteUser(username):
-    user_to_delete = username
+    user_to_delete = username[0]
     if (checkUserExists(user_to_delete) == True):
-            delete_this_user = execute()
             deleting = execute('delete from users where username=%s', (user_to_delete,))
             connection.commit()
 
