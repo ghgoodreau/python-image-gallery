@@ -16,4 +16,10 @@ def admin_render():
 
 @app.route('/admin/newUser')
 def new_user():
-    return render_template('newUser.html')
+    connect()
+    return render_template('addUser.html')
+
+@app.route('/admin/modifyUser/<username>')
+def modify_user(username):
+    connect()
+    return render_template('modifyUser.html', username = username)

@@ -9,7 +9,8 @@
     <br>
     <h2>Here is a list of users:</h2>
     {% for user in user_list %}
-      <a href="/admin/{{(user[0])}}">{{(user)}}</a>
+      <a href="/admin/modifyUser/{{(user[0])}}">{{(user)}}</a>
     {% endfor %}
+    <a href="/admin/newUser"><button>Add A User!</button></a>
   </body>
 </html>
