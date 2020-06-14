@@ -45,9 +45,9 @@ def deleting_user_render(username):
     connect()
     return render_template('confirm.html', username = username)
 
-@app.route('/admin/deletingUser/<username>', methods=['POST'])
-def confirmed_delete_render(username):
-    user_to_delete = username
+@app.route('/admin/deletingUser', methods=['POST'])
+def confirmed_delete_render():
+    user_to_delete = [request.form['deleting_username']]
     connect()
     deleteUser(user_to_delete)
     return redirect(url_for('admin_render'))

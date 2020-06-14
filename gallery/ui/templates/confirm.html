@@ -7,6 +7,9 @@
   <body>
     <h1>do you want to confirm this delete of user {{(username)}}?</h1>
     <a href="/admin"><button>No, go back home.</button></a>
-    <a href="/admin/deletingUser/{{(username)}}"><button>Yes, confirm delete of {{(username)}}!</button></a>
+    <form action="/admin/deletingUser" method="POST">
+      <input name="deleting_username" value="{{(username)}}" type="hidden">
+      <input type="submit" value="Yes!!! Delete User!" />
+    </form>
   </body>
 </html>
