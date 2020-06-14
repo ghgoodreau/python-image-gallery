@@ -1,6 +1,6 @@
 import psycopg2
 import json
-from secrets import get_secret_image_gallery
+from secrets import *
 
 # rewriting this because user_admin is incompatible with scaling to a web app
 
