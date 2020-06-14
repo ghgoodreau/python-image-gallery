@@ -89,6 +89,13 @@ def editUser(username):
                 edit_fullname = execute('update users set full_name=%s where username=%s;', (edituser_fullname, edituser_name))
 	    connection.commit()
 
+def deleteUser(username):
+    user_to_delete = username
+    if (checkUserExists(deleteuser_name) == True):
+            delete_this_user = execute()
+            deleting = execute('delete from users where username=%s', (user_to_delete,))
+            connection.commit()
+
 def main():
     connect()
     test = listUsers()
