@@ -23,3 +23,12 @@ def new_render():
 def modify_rener(username):
     connect()
     return render_template('modifyUser.html', username = username)
+
+@app.route('/admin/addingUser', methods=['POST'])
+def adding_user_render():
+    new_user = [request.form['adding_username'], request.form['adding_password'], request.form['adding_full_name']]
+    connect()
+    #without this if statement, timeout occurs
+    if(checkUserExists(request.form['adding_username']) == False):
+      addUser(new_user)
+    return redirect(url_for('admin_render'))
