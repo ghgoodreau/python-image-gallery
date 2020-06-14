@@ -40,13 +40,14 @@ def editing_user_render():
     editUser(edit_user)
     return redirect(url_for('admin_render'))
 
-@app.route('admin/confirmDelete/<username>')
+@app.route('/admin/confirmDelete/<username>')
 def deleting_user_render(username):
     connect()
     return render_template('confirm.html', username = username)
 
-@app.route('admin/deletingUser/<username>', methods=['POST'])
+@app.route('/admin/deletingUser/<username>', methods=['POST'])
 def confirmed_delete_render(username):
+    user_to_delete = username
     connect()
-    deleteUser(username)
+    deleteUser(user_to_delete)
     return redirect(url_for('admin_render'))
