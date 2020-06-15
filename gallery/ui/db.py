@@ -1,9 +1,8 @@
 import psycopg2
 import json
-from secrets import get_secret_image_gallery
+from secrets import *
 
 # rewriting this because user_admin is incompatible with scaling to a web app
-
 
 # setup stuff
 connection = None
@@ -37,26 +36,18 @@ def execute(query, args=None):
 	else:
 		cursor.execute(query, args)
 	return cursor
+# end setup stuff
 
 # lists all users
 def listUsers():
     list_users = execute('select * from users;')
     return list_users
 
-# needed to print on admin page without password
-def listUsersWithoutPassword():
-    list_nopassword = execute('select username, full_name from users;')
-    return list_nopassword
 
 #returns a specific user with all their info
 def getUser(username):
     get_user = execute('select * from users where username=%s;', (username,))
     return get_user
-
-# returns a specific user with no password
-def getUserNoPass(username):
-    get_user_nopass = execute('select username, full_name from users where username=%s;', (username,))
-    return get_user_nopass
 
 #function to check if a user exits already. Returns true if user exists, false otherwise.
 def checkUserExists(usernameToCheck):
@@ -84,11 +75,19 @@ def editUser(username):
     edituser_fullname = username[2]
     if (checkUserExists(edituser_name) == True):
 	    if (edituser_pass != ''):
-                edit_pass = execute('update users set password=%s where username=%s;', (password, username))
+                edit_pass = execute('update users set password=%s where username=%s;', (edituser_pass, edituser_name))
 	    if (edituser_fullname != ''):
-                edit_fullname = execute('update users set full_name=%s where username=%s;', (full_name, username))
+                edit_fullname = execute('update users set full_name=%s where username=%s;', (edituser_fullname, edituser_name))
 	    connection.commit()
 
+# function to delete user. no confirm necessary as that will be application side
+def deleteUser(username):
+    user_to_delete = username[0]
+    if (checkUserExists(user_to_delete) == True):
+            deleting = execute('delete from users where username=%s', (user_to_delete,))
+            connection.commit()
+
+# main method for testing only
 def main():
     connect()
     test = listUsers()
