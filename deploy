@@ -6,3 +6,4 @@ if [ "$#" != "1" ]; then
 fi
 
 aws s3 cp ec2-scripts/ec2-prod-$1.sh s3://ghg.rocks.image-gallery
+aws s3 sync nginx s3://ghg.rocks.image-gallery/nginx
