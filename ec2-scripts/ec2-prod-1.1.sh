@@ -15,7 +15,7 @@ cd ~/python-image-gallery
 su ec2-user -l -c "cd ~/python-image-gallery && pip3 install -r requirements.txt --user"
 
 aws s3 cp s3://ghg.rocks.image-gallery/nginx/nginx.conf /etc/nginx
-aws s3 cp s3://ghg.rock.image-gallery/nginx/default.d/image_gallery.conf /etc/nginx/default.d
+aws s3 cp s3://ghg.rocks.image-gallery/nginx/default.d/image_gallery.conf /etc/nginx/default.d
 
 # start/enable services
 systemctl stop postfix
@@ -23,4 +23,4 @@ systemctl disable postfix
 systemctl start nginx
 systemctl enable nginx
 
-su ec2-user -l -c "cd ~/python-image-gallery && ./start">/var/log/image_gallery.log 2>&1 &
+su ec2-user -l -c "cd ~/python-image-gallery && ./start.sh">/var/log/image_gallery.log 2>&1 &
