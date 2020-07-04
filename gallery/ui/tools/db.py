@@ -7,6 +7,13 @@ from .secrets import *
 # setup stuff
 connection = None
 
+#db info
+# users table
+# username, password, full_name
+
+#s3_imgs table
+#username, img_name
+
 def get_secret():
 	jsonString = get_secret_image_gallery()
 	return json.loads(jsonString)
@@ -86,6 +93,15 @@ def deleteUser(username):
     if (checkUserExists(user_to_delete) == True):
             deleting = execute('delete from users where username=%s', (user_to_delete,))
             connection.commit()
+
+# methods for s3 (separate table in image_gallery db) #confirmed working
+def insert_image_2db(username, img_name):
+	s3_addimage = execute('insert into s3_imgs values (%s, %s);', (username, img_name))
+	connection.commit()
+
+#unsure if this works yet
+def get_images_db(username):
+	s3_getimages = execute('select * from s3_imgs where username=%s', (username,))
 
 # main method for testing only
 def main():
