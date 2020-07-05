@@ -11,6 +11,8 @@ ENV IG_USER = postgres
 ENV IG_PASSWRD = cpsc4973
 ENV IG_PASSWD_FILE = /ig_password
 ENV S3_IMAGE_BUCKET = m6-image-gallery-ghg
+ENV FLASK_APP=app.py
+ENV FLASK_ENV=development
 
 # Time Zone request fix
 ENV TZ=America/Chicago
@@ -33,6 +35,7 @@ WORKDIR /app
 
 # EXPOSE
 EXPOSE 5555
+EXPOSE 8888
 
 # boot commands
 CMD ["uwsgi", "--http", ":5555", "--module", "gallery.ui.app:app", "--master", "--processes", "4", "--threads", "2"]
