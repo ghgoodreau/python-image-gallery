@@ -14,6 +14,8 @@ connection = None
 #s3_imgs table
 #username, img_name
 
+#to connect = psql -h mydbip -U user
+
 def get_secret():
 	jsonString = get_secret_image_gallery()
 	return json.loads(jsonString)
