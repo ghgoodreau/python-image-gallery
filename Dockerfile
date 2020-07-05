@@ -38,6 +38,7 @@ EXPOSE 5555
 EXPOSE 8888
 EXPOSE 5000
 EXPOSE 8080
+EXPOSE 5432
 
 # boot commands
 CMD ["uwsgi", "--http", ":5555", "--module", "gallery.ui.app:app", "--master", "--processes", "4", "--threads", "2"]

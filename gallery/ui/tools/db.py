@@ -39,7 +39,7 @@ def get_dbname(secret):
 # 	connection = psycopg2.connect(host=get_host(secret), dbname=get_dbname(secret), user=get_username(secret), password=get_password(secret))
 
 ## IF LOCAL
-db_name = "image_gallery"
+dbname = "image_gallery"
 db_port = 5432
 db_host = os.environ.get('PG_HOST')
 db_user = os.environ.get('IG_USER')
