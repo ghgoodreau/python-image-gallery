@@ -18,6 +18,7 @@ def get_object(bucket_name, key):
 	try:
 		s3_resource = boto3.resource('s3')
 		obj = s3_resource.Object(bucket_name, key)
+		body = obj.get()['Body'].read()
 	except ClientError as e:
 		logging.error(e)
 		return None

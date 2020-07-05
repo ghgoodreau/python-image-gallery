@@ -1,31 +1,40 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from .tools import *
 from .tools.secrets import *
 from .tools.db import *
-from flask import session, flash
 from .tools.pg_user_dao import PostgresUserDAO
 from .tools.user import User
 from .tools.s3 import *
+from base64 import b64encode
 
 app = Flask(__name__)
+# this must be added to AWS secrets eventually via secrets.py
 app.secret_key = b'asdihhqweih123'
 BUCKET = 'm6-image-gallery-ghg'
 
+#DAO from m5
 def get_user_dao():
     return PostgresUserDAO()
 
+# home page!
 @app.route('/')
 def hello_world():
     return render_template('home.html')
+
+# debugs the session username
+@app.route('/debugSession')
+def debugSession():
+   return session['username']
 
 # checks if user logged in is in the database
 def check_login():
     return 'username' in session and get_user_dao().get_user_by_name(session['username'])
 
-# checks if user logged in is an admin (admin is hard coded as harry right now)
+# checks if user logged in is an admin (admin is hard coded as dongji right now)
 def check_admin():
-    return 'username' in session and session['username'] == 'harry'
+    return 'username' in session and session['username'] == 'dongji'
 
+# admin page, locked behind admin account
 @app.route('/admin')
 def admin_render():
     connect()
@@ -34,6 +43,7 @@ def admin_render():
     listOfUsers = listUsers().fetchall()
     return render_template('admin.html', user_list = listOfUsers)
 
+# new user page
 @app.route('/admin/newUser')
 def new_render():
     connect()
@@ -41,6 +51,7 @@ def new_render():
         return redirect('/login')
     return render_template('addUser.html')
 
+# modify user page
 @app.route('/admin/modifyUser/<username>')
 def modify_render(username):
     connect()
@@ -48,6 +59,7 @@ def modify_render(username):
         return redirect('/login')
     return render_template('modifyUser.html', username = username)
 
+# adding user
 @app.route('/admin/addingUser', methods=['POST'])
 def adding_user_render():
     new_user = [request.form['adding_username'], request.form['adding_password'], request.form['adding_full_name']]
@@ -59,6 +71,7 @@ def adding_user_render():
       addUser(new_user)
     return redirect(url_for('admin_render'))
 
+# editing user
 @app.route('/admin/editingUser', methods=['POST'])
 def editing_user_render():
     edit_user = [request.form['editing_username'], request.form['editing_password'], request.form['editing_full_name']]
@@ -68,6 +81,7 @@ def editing_user_render():
     editUser(edit_user)
     return redirect(url_for('admin_render'))
 
+# confirms the deletion of user
 @app.route('/admin/confirmDelete/<username>')
 def deleting_user_render(username):
     connect()
@@ -75,6 +89,7 @@ def deleting_user_render(username):
         return redirect('/login')
     return render_template('confirm.html', username = username)
 
+# process of deleting user
 @app.route('/admin/deletingUser', methods=['POST'])
 def confirmed_delete_render():
     user_to_delete = [request.form['deleting_username']]
@@ -98,9 +113,10 @@ def login_render():
     else:
         return render_template('login.html')
 
+# invalid login page. may make this a full html doc for links later.
 @app.route('/invalidLogin')
 def invalid_login():
-    return "Invalid"
+    return "Invalid Username or Password."
 
 # the actual action of logging in (once you click the login button)
 # must start a new sesh and authenticate the user, then redirect home
@@ -110,7 +126,7 @@ def invalid_login():
 #     # do things here that authenticate user
 #     return redirect(url_for('hello_world'))
 
-# upload image page
+# page where you select and upload your image
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_render():
     connect()
@@ -118,6 +134,7 @@ def upload_render():
         return redirect('/login')
     return render_template('upload.html',user = get_user_dao().get_user_by_name(session['username']))
 
+# uploading image
 @app.route('/uploading', methods=['GET', 'POST'])
 def uploading_render():
    if request.method == 'POST':
@@ -125,8 +142,8 @@ def uploading_render():
       path = session['username'] + '/' + image.filename
       put_object(BUCKET, path, image) # s3 side
       username = session['username']
-      insert_image_2db(username, path) # database side
-      return redirect("/")
+      addImage(username, path) # database side
+      return redirect("/view")
 
 #view gallery page
 @app.route('/view', methods=['GET', 'POST'])
@@ -134,7 +151,14 @@ def view_render():
     connect()
     if not check_login():
         return redirect('/login')
-    return render_template('view.html')
+    username = session['username']
+    images = get_user_dao().get_images_by_name(username)
+    imports = {}
+    for image in images:
+        image_object = get_object(BUCKET, image)
+        b64pic = b64encode(image_object).decode("utf-8")
+        imports[image] = b64pic
+    return render_template('view.html', images=imports, user=session['username'])
 
 # not working right now but not a requirement
 @app.route('/logout')
@@ -143,10 +167,14 @@ def logout_render():
     session['username'] = None
     return redirect("/login")
 
-# debugs the session variables. delete this when done.
-@app.route('/debugSession')
-def debugSession():
-   result = ""
-   for key, value in session.items():
-      result += key+"->"+str(value)+"<br />"
-   return result
+# delete images
+@app.route('/delete', methods=['POST', 'GET'])
+def delete_button():
+    connect()
+    if not check_login():
+        return redirect('/login')
+    key = request.form['key']
+    user = session['username']
+    delete_object(BUCKET, key)
+    deleteImage(user, key)
+    return redirect("/view")

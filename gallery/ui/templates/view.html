@@ -2,10 +2,25 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>view</title>
+    <title>Gallery</title>
   </head>
   <body>
-    <h1>View your images here, usernamefiller!</h1>
-    THISISWHEREIMAGESWILLBE.jpg
+    <a href="/">Home</a><br>
+    <h1>Image Gallery</h1>
+    {% if images %}
+        <h2>{{user}}'s images</h2>
+        {% for key, value in images.items() %}
+          <form action="/delete" method="POST">
+            <ul>
+              <li>
+                <img src="data:image/jpeg;base64,{{ value | safe }}" style="width: 100%; max-width: 400px;">
+                <input type="hidden" name="key" value="{{ key }}"><br>
+                <input type ="submit" value="Delete {{key}}"/>
+              </li>
+              </ul>
+        {% endfor %}
+      {% else %}
+      <h1>No images :( Upload some <a href="/upload">here</a></h1>
+      {% endif %}
   </body>
 </html>

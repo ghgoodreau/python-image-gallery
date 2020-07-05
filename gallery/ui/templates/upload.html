@@ -5,7 +5,8 @@
     <title>upload</title>
   </head>
   <body>
-    <h1>Upload your image here, usernamefiller!</h1>
+    <a href="/">Home</a><br>
+    <h1>Upload your image here, {{user.username}}!</h1>
     <form method="POST" action="/uploading" enctype=multipart/form-data>
        <input type = hidden name=username value={{ user.username }}>
        <input type=file name=file>

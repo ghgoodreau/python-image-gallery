@@ -95,14 +95,18 @@ def deleteUser(username):
             connection.commit()
 
 # methods for s3 (separate table in image_gallery db) #confirmed working
-def insert_image_2db(username, img_name):
+def addImage(username, img_name):
 	s3_addimage = execute('insert into s3_imgs values (%s, %s);', (username, img_name))
 	connection.commit()
 
-#unsure if this works yet
-def get_images_db(username):
+# unsure if this works yet
+def getImages(username):
 	s3_getimages = execute('select * from s3_imgs where username=%s', (username,))
 
+# delete images
+def deleteImage(username, img_name):
+	s3_deleteimage = execute('delete from s3_imgs where username=%s and img_name=%s', (username, img_name))
+	connection.commit()
 # main method for testing only
 def main():
     connect()
