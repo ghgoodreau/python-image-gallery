@@ -26,12 +26,12 @@ RUN git clone --single-branch --branch dev https://github.com/ghgoodreau/python-
 RUN useradd -m image_gallery
 RUN chown -R image_gallery:image_gallery /app
 RUN pip3 install -r /app/requirements.txt
-
 # specifies user
 USER image_gallery
 
 # specifies working directory
 WORKDIR /app
+RUN createDB
 
 # EXPOSE
 EXPOSE 5555
@@ -39,6 +39,7 @@ EXPOSE 8888
 EXPOSE 5000
 EXPOSE 8080
 EXPOSE 5432
+
 
 # boot commands
 CMD ["uwsgi", "--http", ":5555", "--module", "gallery.ui.app:app", "--master", "--processes", "4", "--threads", "2"]
