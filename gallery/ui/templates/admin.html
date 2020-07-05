@@ -5,12 +5,13 @@
     <title>admin</title>
   </head>
   <body>
+    <a href="/">Home</a><br>
     <h1>User Administration</h1>
-    <br>
     <h2>Here is a list of users:</h2>
     {% for user in user_list %}
-      <li><a href="/admin/modifyUser/{{(user[0])}}">Username: {{(user[0])}} || Full Name: {{(user[2])}}</a><a href="/admin/confirmDelete/{{(user[0])}}"><button>Delete User</button></a></li>
+      <li><a href="/admin/modifyUser/{{(user[0])}}">Username: {{(user[0])}} || Full Name: {{(user[2])}}</a> <a href="/admin/confirmDelete/{{(user[0])}}"><button>Delete User</button></a></li>
     {% endfor %}
+    <br>
     <a href="/admin/newUser"><button>Add A User!</button></a>
   </body>
 </html>
