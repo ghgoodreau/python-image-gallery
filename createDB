@@ -1,2 +1,4 @@
 #!/usr/bin/bash
 psql -h $PG_HOST -U $IG_USER -d $IG_DATABASE -p $PG_PORT < tables.sql
+
+# not sure if this is working at the moment, but it should.
