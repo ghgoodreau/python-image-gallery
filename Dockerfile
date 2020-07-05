@@ -13,6 +13,7 @@ ENV IG_PASSWD_FILE = /ig_password
 ENV S3_IMAGE_BUCKET = m6-image-gallery-ghg
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=development
+ENV PGPASSWORD = simple
 
 # Time Zone request fix
 ENV TZ=America/Chicago

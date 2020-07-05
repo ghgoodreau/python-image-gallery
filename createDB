@@ -1,3 +1,2 @@
 #!/usr/bin/bash
-export PGPASSWORD = $IG_PASSWRD
 psql -h $PG_HOST -U $IG_USER -d $IG_DATABASE -p $PG_PORT < tables.sql
