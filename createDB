@@ -1,10 +1,2 @@
 #!/usr/bin/bash
-psql -d
-postgresql://$IG_USER:$IG_PASSWD@$PG_HOST:$PG_PORT/$IG_DATABASE -f tables.sql
-#psql commands: psql -U postgres (connects to the db as postgres master)
-#create user IG_USER login password 'simple';
-#grant IG_USER to postgres;
-#create database image_gallery owner IG_USER;
-#\q to quit
-#psql -U IG_USER image_gallery
-#simple
+psql -h $PG_HOST -U $IG_USER -d $IG_DATABASE -p $PG_PORT < tables.sql
