@@ -152,13 +152,12 @@ def view_render():
     if not check_login():
         return redirect('/login')
     username = session['username']
-    images = get_user_dao().get_images_by_name(username)
     imports = {}
+    images = get_user_dao().get_images_by_name(username)
     for image in images:
         image_object = get_object(BUCKET, image)
-        b64pic = b64encode(image_object).decode("utf-8")
-        imports[image] = b64pic
-    return render_template('view.html', images=imports, user=session['username'])
+        imports[image] = b64encode(image_object).decode("utf-8")
+    return render_template('view.html', user=session['username'], images=imports)
 
 # not working right now but not a requirement
 @app.route('/logout')
@@ -173,8 +172,6 @@ def delete_button():
     connect()
     if not check_login():
         return redirect('/login')
-    key = request.form['key']
-    user = session['username']
-    delete_object(BUCKET, key)
-    deleteImage(user, key)
+    delete_object(BUCKET, request.form['key'])
+    deleteImage(session['username'], request.form['key'])
     return redirect("/view")
