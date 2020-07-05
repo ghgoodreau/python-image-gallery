@@ -6,6 +6,7 @@ from .tools.pg_user_dao import PostgresUserDAO
 from .tools.user import User
 from .tools.s3 import *
 from base64 import b64encode
+import os
 
 app = Flask(__name__)
 # this must be added to AWS secrets eventually via secrets.py

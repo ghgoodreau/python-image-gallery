@@ -7,8 +7,8 @@ FROM ubuntu:latest
 ENV PG_HOST = 0.0.0.0
 ENV PG_PORT = 5432
 ENV IG_DATABASE = image_gallery
-ENV IG_USER = postgres
-ENV IG_PASSWRD = cpsc4973
+ENV IG_USER = ig_user
+ENV IG_PASSWRD = simple
 ENV IG_PASSWD_FILE = /ig_password
 ENV S3_IMAGE_BUCKET = m6-image-gallery-ghg
 ENV FLASK_APP=app.py

@@ -1,7 +1,7 @@
 import psycopg2
 import json
 from .secrets import *
-
+import os
 # rewriting this because user_admin is incompatible with scaling to a web app
 
 # setup stuff
@@ -16,6 +16,7 @@ connection = None
 
 #to connect = psql -h mydbip -U user
 
+## IF HOSTED ON CLOUD
 def get_secret():
 	jsonString = get_secret_image_gallery()
 	return json.loads(jsonString)
@@ -32,10 +33,21 @@ def get_username(secret):
 def get_dbname(secret):
 	return secret['database_name']
 
+# def connect():
+# 	global connection
+# 	secret = get_secret()
+# 	connection = psycopg2.connect(host=get_host(secret), dbname=get_dbname(secret), user=get_username(secret), password=get_password(secret))
+
+## IF LOCAL
+db_name = "image_gallery"
+db_port = 5432
+db_host = os.environ.get('PG_HOST')
+db_user = os.environ.get('IG_USER')
+db_password = os.environ.get('IG_PASSWRD')
+
 def connect():
 	global connection
-	secret = get_secret()
-	connection = psycopg2.connect(host=get_host(secret), dbname=get_dbname(secret), user=get_username(secret), password=get_password(secret))
+	connection = psycopg2.connect(host=db_host, db_name=db_name, user=db_user, password=db_password)
 
 def execute(query, args=None):
 	global connection
