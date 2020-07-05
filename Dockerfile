@@ -4,16 +4,16 @@
 FROM ubuntu:latest
 
 # Environment variables
-ENV PG_HOST = image-gallery.cctr1zoblre6.us-east-2.rds.amazonaws.com
-ENV PG_PORT = 5432
-ENV IG_DATABASE = image_gallery
-ENV IG_USER = image_gallery
-ENV IG_PASSWRD = simple
-ENV IG_PASSWD_FILE = /ig_password
-ENV S3_IMAGE_BUCKET = m6-image-gallery-ghg
+ENV PG_HOST=image-gallery.cctr1zoblre6.us-east-2.rds.amazonaws.com
+ENV PG_PORT=5432
+ENV IG_DATABASE=image_gallery
+ENV IG_USER=image_gallery
+ENV IG_PASSWRD=simple
+ENV IG_PASSWD_FILE=/ig_password
+ENV S3_IMAGE_BUCKET=m6-image-gallery-ghg
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=development
-ENV PGPASSWORD = simple
+ENV PGPASSWORD=simple
 
 # Time Zone request fix
 ENV TZ=America/Chicago
@@ -32,6 +32,7 @@ USER image_gallery
 
 # specifies working directory
 WORKDIR /app
+# RUN /app/createDB
 
 # EXPOSE
 EXPOSE 5555
