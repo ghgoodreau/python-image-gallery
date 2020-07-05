@@ -22,7 +22,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update -y
 RUN apt-get install git python3 python3-pip python3-psycopg2 postgresql -y
 RUN mkdir /app
-RUN git clone https://github.com/ghgoodreau/python-image-gallery.git /app
+RUN git clone --single-branch --branch dev https://github.com/ghgoodreau/python-image-gallery.git /app
 RUN useradd -m image_gallery
 RUN chown -R image_gallery:image_gallery /app
 RUN pip3 install -r /app/requirements.txt
@@ -36,6 +36,8 @@ WORKDIR /app
 # EXPOSE
 EXPOSE 5555
 EXPOSE 8888
+EXPOSE 5000
+EXPOSE 8080
 
 # boot commands
 CMD ["uwsgi", "--http", ":5555", "--module", "gallery.ui.app:app", "--master", "--processes", "4", "--threads", "2"]

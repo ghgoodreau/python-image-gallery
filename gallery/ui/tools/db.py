@@ -47,7 +47,7 @@ db_password = os.environ.get('IG_PASSWRD')
 
 def connect():
 	global connection
-	connection = psycopg2.connect(host=db_host, db_name=db_name, user=db_user, password=db_password, port=db_port)
+	connection = psycopg2.connect(host='localhost', db_name='image_gallery', user='ig_user', password='simple', port='5432')
 
 def execute(query, args=None):
 	global connection
