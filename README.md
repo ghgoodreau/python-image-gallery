@@ -5,7 +5,3 @@ Deployed via [its ansible counterpart](https://github.com/ghgoodreau/ansible_ima
 ## What is it
 
 A simple image gallery that users can upload and view images on. Log in, upload and delete images, and view all the images you have uploaded. 
-
-## TODO
-
-Add CSS to make it pretty
