@@ -8,7 +8,7 @@ from botocore.exceptions import ClientError
 
 
 def get_secret_image_gallery():
-# use m5-ig-secret below for the ansible version. for the ig vpc (not m5 vpc), use sec-ig-image_gallery.
+    # change secret_name below with the name of your secrets manager
     secret_name = "sec-ig-image_gallery"
     region_name = "us-east-2"
 

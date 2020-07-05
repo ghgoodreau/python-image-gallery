@@ -8,9 +8,8 @@ from .tools.s3 import *
 from base64 import b64encode
 
 app = Flask(__name__)
-# this must be added to AWS secrets eventually via secrets.py
-app.secret_key = b'asdihhqweih123'
-BUCKET = 'm6-image-gallery-ghg'
+app.secret_key = b'asdihhqweih123' # this should be in AWS secrets in a deployed setting for security purposes
+BUCKET = 'm6-image-gallery-ghg' # this should be in AWS secrets in a deployed setting for security purposes
 
 #DAO from m5
 def get_user_dao():

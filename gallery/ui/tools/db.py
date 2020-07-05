@@ -2,17 +2,8 @@ import psycopg2
 import json
 from .secrets import *
 
-# rewriting this because user_admin is incompatible with scaling to a web app
-
 # setup stuff
 connection = None
-
-#db info
-# users table
-# username, password, full_name
-
-#s3_imgs table
-#username, img_name
 
 def get_secret():
 	jsonString = get_secret_image_gallery()
