@@ -4,7 +4,7 @@
 FROM ubuntu:latest
 
 # Environment variables
-ENV PG_HOST = 0.0.0.0
+ENV PG_HOST = localhost
 ENV PG_PORT = 5432
 ENV IG_DATABASE = image_gallery
 ENV IG_USER = ig_user
