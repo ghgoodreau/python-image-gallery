@@ -4,10 +4,10 @@
 FROM ubuntu:latest
 
 # Environment variables
-ENV PG_HOST = localhost
+ENV PG_HOST = image-gallery.cctr1zoblre6.us-east-2.rds.amazonaws.com
 ENV PG_PORT = 5432
 ENV IG_DATABASE = image_gallery
-ENV IG_USER = ig_user
+ENV IG_USER = image_gallery
 ENV IG_PASSWRD = simple
 ENV IG_PASSWD_FILE = /ig_password
 ENV S3_IMAGE_BUCKET = m6-image-gallery-ghg

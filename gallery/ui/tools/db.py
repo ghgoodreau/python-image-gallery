@@ -39,15 +39,15 @@ def get_dbname(secret):
 # 	connection = psycopg2.connect(host=get_host(secret), dbname=get_dbname(secret), user=get_username(secret), password=get_password(secret))
 
 ## IF LOCAL
-dbname = "image_gallery"
-db_port = 5432
+d_bname = os.environ.get('IG_DATABASE')
+db_port = os.environ.get('PG_PORT')
 db_host = os.environ.get('PG_HOST')
 db_user = os.environ.get('IG_USER')
 db_password = os.environ.get('IG_PASSWRD')
 
 def connect():
 	global connection
-	connection = psycopg2.connect(host='localhost', dbname='image_gallery', user='ig_user', password='simple', port='5432')
+	connection = psycopg2.connect(host=db_host, dbname=db_name, user=db_user, password=db_password, port=db_port)
 
 def execute(query, args=None):
 	global connection
