@@ -32,7 +32,6 @@ USER image_gallery
 
 # specifies working directory
 WORKDIR /app
-RUN /app/createDB
 
 # EXPOSE
 EXPOSE 5555
