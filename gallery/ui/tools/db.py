@@ -43,7 +43,7 @@ db_name = os.environ.get('IG_DATABASE')
 db_port = os.environ.get('PG_PORT')
 db_host = os.environ.get('PG_HOST')
 db_user = os.environ.get('IG_USER')
-db_password = os.environ.get('IG_PASSWRD')
+db_password = os.environ.get('IG_PASSWD')
 
 def connect():
 	global connection

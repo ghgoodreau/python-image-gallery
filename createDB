@@ -1,4 +1,7 @@
 #!/usr/bin/bash
+if [-v $"IG_PASSWD_FILE"]
+then
+  $IG_PASSWD = 'cat $IG_PASSWD_FILE'
+fi
+export PGPASSWORD=$IG_PASSWD
 psql -h $PG_HOST -U $IG_USER -d $IG_DATABASE -p $PG_PORT < tables.sql
-
-# not sure if this is working at the moment, but it should.
