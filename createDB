@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-if [-v $"IG_PASSWD_FILE"]
+if [ -v $"IG_PASSWD_FILE" ]
 then
   $IG_PASSWD = 'cat $IG_PASSWD_FILE'
 fi
