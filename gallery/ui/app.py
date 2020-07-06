@@ -137,10 +137,10 @@ def upload_render():
 @app.route('/uploading', methods=['GET', 'POST'])
 def uploading_render():
    if request.method == 'POST':
-      image = request.files['file']
-      path = session['username'] + '/' + image.filename
-      put_object(BUCKET, path, image) # s3 side
       username = session['username']
+      image = request.files['file']
+      path = username + '/' + image.filename
+      put_object(BUCKET, path, image) # s3 side
       addImage(username, path) # database side
       return redirect("/view")
 
