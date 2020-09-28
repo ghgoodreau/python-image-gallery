@@ -1,3 +1,5 @@
+# Note: All credentials in this repository will be invalid, as the account was destroyed after the course. 
+
 # An Amazon EC2-based python image gallery manager
 
 Deployed via [its ansible counterpart](https://github.com/ghgoodreau/ansible_image_gallery), this load-balanced application is hosted in the AWS cloud via a VPC and RDS instance.
