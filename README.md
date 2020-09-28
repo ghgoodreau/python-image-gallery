@@ -1,4 +1,4 @@
-# Note: All credentials in this repository will be invalid, as the account was destroyed after the course. 
+# Note: All credentials in this repository will be invalid, as the AWS account has been destroyed.
 
 # An Amazon EC2-based python image gallery manager
 
