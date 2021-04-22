@@ -1,5 +1,3 @@
-# Note: All credentials in this repository will be invalid, as the AWS account has been destroyed.
-
 # An Amazon EC2-based python image gallery manager
 
 Deployed via [its ansible counterpart](https://github.com/ghgoodreau/ansible_image_gallery), this load-balanced application is hosted in the AWS cloud via a VPC and RDS instance.
@@ -7,6 +5,10 @@ Deployed via [its ansible counterpart](https://github.com/ghgoodreau/ansible_ima
 ## What is it
 
 A simple image gallery that users can upload and view images on. Log in, upload and delete images, and view all the images you have uploaded. 
+
+## Disclaimer
+
+Any credentials in this project are invalid and the AWS account has been destroyed. In best practice, the credentials would be placed in a file separate from source control. However, for the purposes of the course, we included them in the script.
 
 ## App layout
 
